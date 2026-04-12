@@ -1,0 +1,8 @@
+[build]
+  command = "npm install"
+  publish = "."
+
+[[redirects]]
+  from = "/api/submit-application"
+  to = "/.netlify/functions/submit-application"
+  status = 200

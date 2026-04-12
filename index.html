@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Market Centre Apartments</title>
+<style>
+:root{
+  --bg:#060606;--panel:rgba(0,0,0,.42);--panel-strong:rgba(0,0,0,.58);
+  --border:rgba(255,255,255,.12);--text:#fff;--soft:#a1a1aa;--accent:#f4c542;
+  --max:1180px;--radius:20px
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:var(--bg);line-height:1.6}
+button,input,select{font:inherit}
+.site-shell{position:relative;min-height:100vh;overflow-x:hidden}
+.top-quarter-bg{position:fixed;top:0;left:0;width:100%;height:25vh;overflow:hidden;z-index:-2}
+.top-quarter-bg img{width:100%;height:100%;object-fit:cover;opacity:.16;filter:saturate(.78);display:block}
+.top-quarter-bg::after{content:"";position:absolute;inset:0;background:rgba(8,8,8,.84)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.hero{position:relative;overflow:hidden;min-height:100vh;border-bottom:1px solid var(--border);display:flex;align-items:flex-end}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,.34), rgba(0,0,0,.14), rgba(0,0,0,.62)),linear-gradient(135deg, rgba(0,0,0,.26), rgba(0,0,0,0) 48%, rgba(0,0,0,.22))}
+.hero-content{position:relative;z-index:1;width:100%}
+.hero-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:end;padding:84px 0 26px}
+.glass{background:rgba(0,0,0,.46);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:24px;border-radius:24px;border:1px solid rgba(255,255,255,.12);max-width:720px}
+.pill,.step-pill{display:inline-flex;border-radius:999px;border:1px solid rgba(244,197,66,.34);background:rgba(244,197,66,.12);color:#fde68a}
+.pill{padding:9px 14px;font-size:14px;margin-bottom:18px}
+.step-pill{padding:8px 12px;font-size:13px;margin-bottom:14px}
+h1{margin:0;font-size:clamp(42px,6vw,78px);line-height:1.02;max-width:680px}
+h2{margin:0 0 10px;font-size:clamp(28px,4vw,40px);line-height:1.1}
+h3{margin:0 0 8px;font-size:22px;line-height:1.2}
+.hero-sub{margin:18px 0 0;font-size:20px;color:#e5e7eb}
+.hero-copy{max-width:650px;font-size:18px;color:#e5e7eb;margin:18px 0 0}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;padding:0 0 28px}
+.stat,.card,.amenity,.form-block,.disclosure,.modal-panel{border:1px solid var(--border);background:rgba(0,0,0,.40);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:var(--radius)}
+.stat{padding:17px 14px;text-align:center;font-weight:600;color:#f3f4f6}
+.section{padding:78px 0}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{padding:28px}
+.muted{color:var(--soft)}
+.photo-section img{width:100%;border-radius:24px;border:1px solid var(--border);object-fit:cover;box-shadow:0 24px 50px rgba(0,0,0,.35)}
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:28px}
+.plan-button{appearance:none;border:0;padding:0;background:none;color:inherit;text-align:left;cursor:pointer}
+.plan-button .card{transition:transform .2s ease, box-shadow .2s ease}
+.plan-button:hover .card{transform:translateY(-4px);box-shadow:0 25px 50px rgba(0,0,0,.45)}
+.amenities-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.amenity{padding:16px 18px;color:#f5f5f5}
+.application{border-top:1px solid var(--border);background:rgba(0,0,0,.26)}
+.form-panel{max-width:940px;margin:0 auto}
+.app-grid{display:grid;gap:14px;margin-top:18px}
+input,select,button.action{width:100%;padding:14px 16px;border-radius:16px;border:1px solid var(--border);background:rgba(0,0,0,.70);color:#fff;outline:none}
+input::placeholder{color:#9ca3af}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.grid-4-form{display:grid;grid-template-columns:1.6fr .6fr 1fr .9fr;gap:14px}
+.form-block{padding:18px;background:var(--panel-strong)}
+.small-label{margin:0 0 12px;font-size:14px;font-weight:600;color:#e5e7eb}
+.subtle{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:#a1a1aa}
+.table-head{font-size:12px;color:#a1a1aa;padding:0 2px}
+.checkbox{display:flex;gap:10px;align-items:flex-start;color:#d4d4d8;font-size:14px}
+.checkbox input{width:18px;height:18px;margin-top:2px;accent-color:var(--accent);padding:0}
+button.action{background:var(--accent);color:#111827;font-weight:700;cursor:pointer;border:none}
+button.action[disabled]{opacity:.7;cursor:not-allowed}
+.disclosure{padding:16px 18px;color:#d4d4d8;font-size:14px;line-height:1.65;background:rgba(0,0,0,.56)}
+.status{min-height:24px;font-size:14px;color:#d4d4d8}
+.footer{padding:26px 0 42px;color:#a1a1aa;font-size:14px}
+.helper{margin-top:10px;max-width:680px;color:#d4d4d8}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;padding:24px;z-index:1000}
+.modal-backdrop.open{display:flex}
+.modal-panel{width:min(1100px,100%);height:min(88vh,900px);padding:14px;background:rgba(12,12,12,.94)}
+.modal-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:6px 6px 12px}
+.modal-title{font-weight:700}
+.modal-actions{display:flex;gap:12px;align-items:center}
+.modal-link,.modal-close{border:1px solid var(--border);background:rgba(255,255,255,.06);color:#fff;padding:10px 14px;border-radius:12px;text-decoration:none;cursor:pointer}
+.modal-frame{width:100%;height:calc(100% - 58px);border:0;border-radius:14px;background:#222}
+@media (max-width:980px){.hero-inner,.stats,.grid-3,.plan-grid,.grid-4-form{grid-template-columns:1fr}.hero{min-height:auto}}
+@media (max-width:720px){.grid-2,.amenities-grid{grid-template-columns:1fr}.wrap{padding:0 18px}.section{padding:62px 0}.hero-inner{padding-top:72px}.modal-backdrop{padding:8px}.modal-panel{height:92vh}}
+</style>
+</head>
+<body>
+<div class="site-shell">
+  <div class="top-quarter-bg"><img src="./public/MCA-Rendering3.png" alt="Background" /></div>
+
+  <section class="hero">
+    <img src="./public/MCA-Rendering3.png" alt="Market Centre Apartments rendering" />
+    <div class="wrap hero-content">
+      <div class="hero-inner">
+        <div class="glass">
+          <div class="pill">Coming to Downtown Wichita in Winter 2026</div>
+          <h1>Market Centre Apartments</h1>
+          <p class="hero-sub">155 N. Market Street, Wichita, KS</p>
+          <p class="hero-copy">Affordable downtown living in a restored historic high-rise with 115 apartment homes.</p>
+        </div>
+        <div></div>
+      </div>
+      <div class="stats">
+        <div class="stat">115 Units</div><div class="stat">Historic High-Rise</div><div class="stat">Downtown Wichita</div><div class="stat">Studio • 1 • 2 Bed</div><div class="stat">Leasing Starts Winter 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section"><div class="wrap"><div class="grid-3">
+    <div class="card"><div style="font-size:34px;">🏙️</div><h3>Historic Downtown Living</h3><p class="muted">A reimagined landmark in the heart of Wichita with character, convenience, and city energy right outside your door.</p></div>
+    <div class="card"><div style="font-size:34px;">🏠</div><h3>Affordable Apartment Options</h3><p class="muted">Studio, one-bedroom, and two-bedroom homes designed to expand access to quality downtown housing.</p></div>
+    <div class="card"><div style="font-size:34px;">📍</div><h3>Connected Location</h3><p class="muted">Steps from dining, offices, entertainment, and the daily rhythm of Wichita’s central business district.</p></div>
+  </div></div></section>
+
+  <section class="section photo-section"><div class="wrap"><img src="./public/MCA-Rendering3.png" alt="Market Centre Apartments Building" /></div></section>
+
+  <section class="section" style="border-top:1px solid rgba(255,255,255,.08); border-bottom:1px solid rgba(255,255,255,.08);"><div class="wrap"><h2>Floor Plans</h2><div class="plan-grid">
+    <button class="plan-button" type="button" data-title="Studio Floor Plan" data-pdf="./public/studio-floorplan.pdf"><div class="card"><h3>Studio</h3><p class="muted">Efficient layout ideal for simple downtown living.</p><p style="margin-top:18px;color:#d4d4d8;">View Floor Plan</p></div></button>
+    <button class="plan-button" type="button" data-title="1 Bedroom Floor Plan" data-pdf="./public/1bed-floorplan.pdf"><div class="card"><h3>1 Bedroom</h3><p class="muted">Comfortable space with a balance of privacy and openness.</p><p style="margin-top:18px;color:#d4d4d8;">View Floor Plan</p></div></button>
+    <button class="plan-button" type="button" data-title="2 Bedroom Floor Plan" data-pdf="./public/2bed1bath-floorplan.pdf"><div class="card"><h3>2 Bedroom</h3><p class="muted">Flexible room to live, work, and host.</p><p style="margin-top:18px;color:#d4d4d8;">View Floor Plan</p></div></button>
+  </div></div></section>
+
+  <section class="section"><div class="wrap"><h2>Community Amenities</h2><div class="amenities-grid" style="margin-top:22px;">
+    <div class="amenity">Community room with kitchen</div><div class="amenity">Library</div><div class="amenity">Fitness center</div><div class="amenity">Business center</div><div class="amenity">Garden-themed atrium</div><div class="amenity">Elevator access</div><div class="amenity">Parking</div><div class="amenity">Full-time property manager</div><div class="amenity">Full-time maintenance staff</div>
+  </div><h2 style="margin-top:52px;">Unit Amenities</h2><div class="amenities-grid" style="margin-top:22px;"><div class="amenity">Central HVAC</div><div class="amenity">Ceiling fans</div><div class="amenity">Kitchen appliance package (range, vent, refrigerator, dishwasher, microwave)</div><div class="amenity">Internet connectivity</div><div class="amenity">Interiors professionally designed by Paragon</div></div></div></section>
+
+  <section class="section application"><div class="wrap form-panel">
+    <div class="step-pill">Step 1 of 2 • Household Details</div>
+    <h2>Interested in Making Market Centre YOUR Home? Tell us about your Household:</h2>
+    <p class="helper">A few quick details will help us understand what apartment type may be the best fit for your household.</p>
+    <form id="applicationForm" class="app-grid">
+      <input name="fullName" placeholder="Your Full Name" required />
+      <input name="email" placeholder="Best Email to Reach You" type="email" required />
+      <input id="tel" name="telephone" placeholder="Best Phone Number" inputmode="numeric" required />
+      <input name="householdSize" placeholder="How Many People Will Live in Your Household?" inputmode="numeric" required />
+      <select name="unitType" required><option value="">Which Apartment Type Interests You Most?</option><option>Studio</option><option>1 Bedroom</option><option>2 Bedroom</option></select>
+
+      <div class="form-block">
+        <p class="small-label">Tell Us About Your Household</p>
+        <p class="subtle">Include each household member and their income source</p>
+        <div class="grid-4-form">
+          <div class="table-head">Household Member Full Name</div><div class="table-head">Age</div><div class="table-head">Income Type</div><div class="table-head">Income Amount</div>
+          <input name="member1" placeholder="Household Member Full Name" /><input name="age1" placeholder="Age" inputmode="numeric" /><select name="incomeType1"><option value="">Income Type</option><option>Employment</option><option>Investments</option><option>Social Security</option><option>Retirement Pension</option><option>Other</option></select><input class="money income-field" name="incomeAmount1" placeholder="$0" inputmode="numeric" />
+          <input name="member2" placeholder="Household Member Full Name" /><input name="age2" placeholder="Age" inputmode="numeric" /><select name="incomeType2"><option value="">Income Type</option><option>Employment</option><option>Investments</option><option>Social Security</option><option>Retirement Pension</option><option>Other</option></select><input class="money income-field" name="incomeAmount2" placeholder="$0" inputmode="numeric" />
+          <input name="member3" placeholder="Household Member Full Name" /><input name="age3" placeholder="Age" inputmode="numeric" /><select name="incomeType3"><option value="">Income Type</option><option>Employment</option><option>Investments</option><option>Social Security</option><option>Retirement Pension</option><option>Other</option></select><input class="money income-field" name="incomeAmount3" placeholder="$0" inputmode="numeric" />
+          <input name="member4" placeholder="Household Member Full Name" /><input name="age4" placeholder="Age" inputmode="numeric" /><select name="incomeType4"><option value="">Income Type</option><option>Employment</option><option>Investments</option><option>Social Security</option><option>Retirement Pension</option><option>Other</option></select><input class="money income-field" name="incomeAmount4" placeholder="$0" inputmode="numeric" />
+        </div>
+        <input id="annualIncome" name="annualIncome" placeholder="Estimated Total Annual Household Income $" readonly />
+      </div>
+
+      <div class="step-pill">Step 2 of 2 • Income, Assets, and Timing</div>
+      <div class="form-block">
+        <p class="small-label">Household Assets (if applicable)</p>
+        <p class="subtle">Bank Accounts</p>
+        <div class="grid-2">
+          <select name="bankType1"><option value="">Bank Account Type</option><option>Checking</option><option>Savings</option><option>Money Market</option><option>Certificate of Deposit</option><option>Other</option></select><input class="money" name="bankAmount1" placeholder="$0" inputmode="numeric" />
+          <select name="bankType2"><option value="">Bank Account Type</option><option>Checking</option><option>Savings</option><option>Money Market</option><option>Certificate of Deposit</option><option>Other</option></select><input class="money" name="bankAmount2" placeholder="$0" inputmode="numeric" />
+        </div>
+        <p class="subtle" style="margin-top:18px;">Property &amp; Other Assets</p>
+        <div class="grid-2">
+          <input name="assetType1" placeholder="Asset Type (Real Estate, Vehicle, etc.)" /><input class="money" name="assetValue1" placeholder="$0" inputmode="numeric" />
+          <input name="assetType2" placeholder="Asset Type (Real Estate, Vehicle, etc.)" /><input class="money" name="assetValue2" placeholder="$0" inputmode="numeric" />
+        </div>
+      </div>
+
+      <select name="studentStatus"><option value="">Are ALL members of your household full-time students?</option><option>Yes</option><option>No</option></select>
+      <input name="preferredMoveIn" placeholder="When Are You Hoping to Move In?" />
+      <label class="checkbox"><input id="certify" type="checkbox" required /><span>I confirm the information provided is accurate to the best of my knowledge and understand verification will be required.</span></label>
+      <button id="submitButton" class="action" type="submit">Submit Your Interest</button>
+      <div id="formStatus" class="status" aria-live="polite"></div>
+      <div class="disclosure">Market Centre Apartments complies with all applicable federal, state, and local fair housing laws. We do not discriminate on the basis of race, color, religion, sex, disability, familial status, national origin, or any other protected class under applicable law. Reasonable accommodations and reasonable modifications are available upon request.</div>
+    </form>
+  </div></section>
+
+  <div class="wrap footer">Market Centre Apartments • 155 N. Market Street • Wichita, Kansas</div>
+</div>
+
+<div id="planModal" class="modal-backdrop" aria-hidden="true">
+  <div class="modal-panel">
+    <div class="modal-top">
+      <div id="planTitle" class="modal-title">Floor Plan</div>
+      <div class="modal-actions">
+        <a id="planDownload" class="modal-link" href="#" target="_blank" rel="noreferrer">Open PDF</a>
+        <button id="planClose" class="modal-close" type="button">Close</button>
+      </div>
+    </div>
+    <iframe id="planFrame" class="modal-frame" title="Floor Plan Viewer"></iframe>
+  </div>
+</div>
+
+<script>
+function formatMoney(value){const digits=String(value||"").replace(/\D/g,"");return digits?"$"+parseInt(digits,10).toLocaleString("en-US"):"";}
+function parseMoney(value){const digits=String(value||"").replace(/\D/g,"");return digits?parseInt(digits,10):0;}
+function formatPhone(value){const x=String(value||"").replace(/\D/g,"").slice(0,10);let formatted="";if(x.length>0)formatted="("+x.slice(0,3);if(x.length>=4)formatted+=") "+x.slice(3,6);if(x.length>=7)formatted+="-"+x.slice(6,10);return formatted;}
+function updateAnnualIncome(){const total=Array.from(document.querySelectorAll(".income-field")).reduce((sum,field)=>sum+parseMoney(field.value),0);document.getElementById("annualIncome").value=total?"$"+total.toLocaleString("en-US"):"";}
+function collectPayload(){const form=new FormData(document.getElementById("applicationForm"));return{fullName:(form.get("fullName")||"").trim(),email:(form.get("email")||"").trim(),telephone:(form.get("telephone")||"").trim(),householdSize:(form.get("householdSize")||"").trim(),unitType:(form.get("unitType")||"").trim(),annualIncome:(form.get("annualIncome")||"").trim(),preferredMoveIn:(form.get("preferredMoveIn")||"").trim(),members:[{fullName:form.get("member1")||"",age:form.get("age1")||"",incomeType:form.get("incomeType1")||"",incomeAmount:form.get("incomeAmount1")||""},{fullName:form.get("member2")||"",age:form.get("age2")||"",incomeType:form.get("incomeType2")||"",incomeAmount:form.get("incomeAmount2")||""},{fullName:form.get("member3")||"",age:form.get("age3")||"",incomeType:form.get("incomeType3")||"",incomeAmount:form.get("incomeAmount3")||""},{fullName:form.get("member4")||"",age:form.get("age4")||"",incomeType:form.get("incomeType4")||"",incomeAmount:form.get("incomeAmount4")||""}].filter(r=>r.fullName||r.age||r.incomeType||r.incomeAmount),bankAccounts:[{accountType:form.get("bankType1")||"",amount:form.get("bankAmount1")||""},{accountType:form.get("bankType2")||"",amount:form.get("bankAmount2")||""}].filter(r=>r.accountType||r.amount),otherAssets:[{assetType:form.get("assetType1")||"",amount:form.get("assetValue1")||""},{assetType:form.get("assetType2")||"",amount:form.get("assetValue2")||""}].filter(r=>r.assetType||r.amount),studentStatus:form.get("studentStatus")||"",certification:document.getElementById("certify").checked};}
+document.querySelectorAll(".money").forEach(function(el){el.addEventListener("input",function(e){e.target.value=formatMoney(e.target.value);if(e.target.classList.contains("income-field"))updateAnnualIncome();});});
+document.getElementById("tel").addEventListener("input",function(e){e.target.value=formatPhone(e.target.value);});
+document.getElementById("applicationForm").addEventListener("submit",async function(event){event.preventDefault();const annualIncome=document.getElementById("annualIncome").value||"";const status=document.getElementById("formStatus");const button=document.getElementById("submitButton");if(!annualIncome||parseMoney(annualIncome)===0){status.textContent="Please enter at least one income amount greater than $0.";return;}button.disabled=true;status.textContent="Submitting your interest...";try{const response=await fetch("/api/submit-application",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(collectPayload())});const result=await response.json();if(!response.ok)throw new Error(result.error||"Unable to submit your interest.");document.getElementById("applicationForm").reset();document.getElementById("annualIncome").value="";status.textContent="Thank you. Your interest has been submitted.";}catch(error){status.textContent=error.message||"Something went wrong while submitting your interest.";}finally{button.disabled=false;}});
+const modal=document.getElementById("planModal"), frame=document.getElementById("planFrame"), title=document.getElementById("planTitle"), link=document.getElementById("planDownload");
+document.querySelectorAll(".plan-button").forEach(function(btn){btn.addEventListener("click",function(){const pdf=btn.dataset.pdf;title.textContent=btn.dataset.title||"Floor Plan";frame.src=pdf+"#view=FitH";link.href=pdf;modal.classList.add("open");modal.setAttribute("aria-hidden","false");});});
+document.getElementById("planClose").addEventListener("click",function(){modal.classList.remove("open");modal.setAttribute("aria-hidden","true");frame.src="";});
+modal.addEventListener("click",function(e){if(e.target===modal){modal.classList.remove("open");modal.setAttribute("aria-hidden","true");frame.src="";}});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&modal.classList.contains("open")){modal.classList.remove("open");modal.setAttribute("aria-hidden","true");frame.src="";}});
+updateAnnualIncome();
+</script>
+</body>
+</html>
